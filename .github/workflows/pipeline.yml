@@ -1,0 +1,109 @@
+name: Build and deliver containers
+
+on: push
+
+jobs:
+  thread-service:
+    runs-on: ubuntu-latest
+    name: Build thread service
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          cache: gradle
+          distribution: adopt
+
+      - name: Build, test and package project
+        working-directory: ./thread-service
+        run: gradle build
+
+      - name: Docker login
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Docker Build
+        run: docker build -t ${{ secrets.DOCKER_USER }}/thread-service:latest ./thread-service
+
+      - name: Upload container to Docker Hub with Push
+        run: docker push ${{ secrets.DOCKER_USER }}/thread-service:latest
+  interaction-service:
+    runs-on: ubuntu-latest
+    name: Build interaction service
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          cache: gradle
+          distribution: adopt
+
+      - name: Build, test and package project
+        working-directory: ./interaction-service
+        run: gradle build
+
+      - name: Docker login
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Docker Build
+        run: docker build -t ${{ secrets.DOCKER_USER }}/interaction-service:latest ./interaction-service
+
+      - name: Upload container to Docker Hub with Push
+        run: docker push ${{ secrets.DOCKER_USER }}/interaction-service:latest
+  user-service:
+    runs-on: ubuntu-latest
+    name: Build user service
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          cache: gradle
+          distribution: adopt
+
+      - name: Build, test and package project
+        working-directory: ./user-service
+        run: gradle build
+
+      - name: Docker login
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Docker Build
+        run: docker build -t ${{ secrets.DOCKER_USER }}/user-service:latest ./user-service
+
+      - name: Upload container to Docker Hub with Push
+        run: docker push ${{ secrets.DOCKER_USER }}/user-service:latest
+  gateway:
+    runs-on: ubuntu-latest
+    name: Build gateway
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          cache: gradle
+          distribution: adopt
+
+      - name: Build, test and package project
+        working-directory: ./gateway
+        run: gradle build
+
+      - name: Docker login
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Docker Build
+        run: docker build --build-arg GOOGLE_CLIENTID=${{ secrets.GOOGLE_CLIENTID }} --build-arg GOOGLE_CLIENTSECRET=${{ secrets.GOOGLE_CLIENTSECRET }} -t ${{ secrets.DOCKER_USER }}/gateway:latest ./gateway
+
+      - name: Upload container to Docker Hub with Push
+        run: docker push ${{ secrets.DOCKER_USER }}/gateway:latest
