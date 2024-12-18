@@ -38,7 +38,7 @@ services:
     environment:
       MYSQL_DB_USERNAME: root
       MYSQL_DB_PASSWORD: password
-      MYSQL_DB_URL: thread-db:3311
+      MYSQL_DB_URL: thread-db:3306
 
   interaction-service:
     depends_on:
@@ -51,7 +51,7 @@ services:
     environment:
       MYSQL_DB_USERNAME: root
       MYSQL_DB_PASSWORD: password
-      MYSQL_DB_URL: interaction-db:3312
+      MYSQL_DB_URL: interaction-db:3306
 
   user-service:
     depends_on:
@@ -62,7 +62,7 @@ services:
     links:
       - user-mongo
     environment:
-      MONGODB_URL: user-mongo:27777
+      MONGODB_URL: user-mongo:27017
 
   gateway:
     depends_on:
