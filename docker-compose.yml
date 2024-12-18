@@ -1,0 +1,90 @@
+services:
+  thread-db:
+    image: mysql
+    restart: always
+    ports:
+      - "3311:3306"
+    volumes:
+      - thread-db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+
+  interaction-db:
+    image: mysql
+    restart: always
+    ports:
+      - "3312:3306"
+    volumes:
+      - interaction-db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+
+  user-mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27777:27017"
+    volumes:
+      - user-mongo:/data/db
+
+  thread-service:
+    depends_on:
+      - thread-db
+    image: mrtnmrx/thread-service
+    ports:
+      - "8081:8081"
+    links:
+      - thread-db
+    environment:
+      MYSQL_DB_USERNAME: root
+      MYSQL_DB_PASSWORD: password
+      MYSQL_DB_HOST: thread-db
+      MYSQL_DB_PORT: 3311
+
+  interaction-service:
+    depends_on:
+      - interaction-db
+    image: mrtnmrx/interaction-service
+    ports:
+      - "8082:8082"
+    links:
+      - interaction-db
+    environment:
+      MYSQL_DB_USERNAME: root
+      MYSQL_DB_PASSWORD: password
+      MYSQL_DB_HOST: interaction-db
+      MYSQL_DB_PORT: 3312
+
+  user-service:
+    depends_on:
+      - user-mongo
+    image: mrtnmrx/user-service
+    ports:
+      - "8083:8083"
+    links:
+      - user-mongo
+    environment:
+      MONGODB_PORT: 27777
+      MONGODB_HOST: user-mongo
+
+  gateway:
+    depends_on:
+      - thread-service
+      - interaction-service
+      - user-service
+    image: mrtnmrx/gateway
+    ports:
+      - "8084:8084"
+    links:
+      - thread-service
+      - interaction-service
+      - user-service
+    environment:
+      THREAD_SERVICE_BASEURL: thread-service:8081
+      INTERACTION_SERVICE_BASEURL: interaction-service:8082
+      USER_SERVICE_BASEURL: user-service:8083
+
+volumes:
+  thread-db:
+  interaction-db:
+  user-mongo:

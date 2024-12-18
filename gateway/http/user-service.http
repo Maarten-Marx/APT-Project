@@ -1,0 +1,3 @@
+### GET user profile by ID
+
+GET http://localhost:8084/users/675a97999772ed412297be75

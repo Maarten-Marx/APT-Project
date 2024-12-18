@@ -1,0 +1,19 @@
+### POST new comment
+POST http://localhost:8084/comments
+Authorization: Bearer {{bearer}}
+Content-Type: application/json
+
+{
+  "threadId": 1,
+  "content": "This is a new comment."
+}
+
+### POST new reaction
+POST http://localhost:8084/reactions
+Authorization: Bearer {{bearer}}
+Content-Type: application/json
+
+{
+  "threadId": 1,
+  "emoji": "💀"
+}

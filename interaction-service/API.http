@@ -1,0 +1,20 @@
+### GET comments by thread
+GET http://localhost:8082/api/comments/1
+
+### POST new comment
+POST http://localhost:8082/api/comments
+Content-Type: application/json
+
+{
+  "threadId": 1,
+  "content": "This is a new comment."
+}
+
+### POST new reaction
+POST http://localhost:8082/api/reactions
+Content-Type: application/json
+
+{
+  "threadId": 1,
+  "emoji": "💀"
+}

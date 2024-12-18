@@ -1,0 +1,32 @@
+### GET all threads
+GET http://localhost:8084/threads
+
+### GET thread with ID 1
+GET http://localhost:8084/threads/1
+
+### GET threads by user 1
+GET http://localhost:8084/threads/user/675a97999772ed412297be75
+
+### POST new thread
+POST http://localhost:8084/threads
+Authorization: Bearer {{bearer}}
+Content-Type: application/json
+
+{
+  "title": "New Thread",
+  "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+}
+
+### PUT thread with ID 4
+PUT http://localhost:8084/threads/4
+Authorization: Bearer {{bearer}}
+Content-Type: application/json
+
+{
+  "title": "Updated Thread",
+  "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+}
+
+### DELETE thread with ID 4
+DELETE http://localhost:8084/threads/4
+Authorization: Bearer {{bearer}}
