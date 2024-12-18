@@ -1,15 +1,14 @@
 package me.maartenmarx.interactionservice.service
 
-import dto.UserRequest
-import dto.UserResponse
-import me.maartenmarx.interactionservice.repository.CommentRepository
+import me.maartenmarx.common.dto.UserRequest
+import me.maartenmarx.common.dto.UserResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.server.ResponseStatusException
 import reactor.core.publisher.Mono
-import service.JwtService
+import me.maartenmarx.common.service.JwtService
 
 @Service
 class InteractionService(

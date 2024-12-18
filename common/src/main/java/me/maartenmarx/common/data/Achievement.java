@@ -1,15 +1,13 @@
-package dto;
+package me.maartenmarx.common.data;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRequest {
-    private String email;
-    private String username;
+public class Achievement {
+    private String name;
+    private String description;
 }

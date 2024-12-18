@@ -1,13 +1,13 @@
 package me.maartenmarx.interactionservice.service
 
-import dto.CommentDto
-import dto.CommentRequest
-import dto.CommentsResponse
+import me.maartenmarx.common.dto.CommentDto
+import me.maartenmarx.common.dto.CommentRequest
+import me.maartenmarx.common.dto.CommentsResponse
 import me.maartenmarx.interactionservice.model.Comment
 import me.maartenmarx.interactionservice.repository.CommentRepository
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
-import service.JwtService
+import me.maartenmarx.common.service.JwtService
 
 @Service
 class CommentService(

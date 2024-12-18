@@ -1,9 +1,6 @@
 package me.maartenmarx.userservice.controller;
 
-import dto.ProfileResponse;
-import dto.UserRequest;
-import dto.UserResponse;
-import dto.UsersResponse;
+import me.maartenmarx.common.dto.*;
 import lombok.RequiredArgsConstructor;
 import me.maartenmarx.userservice.service.UserService;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package service;
+package me.maartenmarx.common.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;

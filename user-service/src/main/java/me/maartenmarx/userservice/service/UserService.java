@@ -1,7 +1,6 @@
 package me.maartenmarx.userservice.service;
 
-import dto.*;
-import lombok.AllArgsConstructor;
+import me.maartenmarx.common.dto.*;
 import lombok.RequiredArgsConstructor;
 import me.maartenmarx.userservice.model.User;
 import me.maartenmarx.userservice.repository.UserRepository;

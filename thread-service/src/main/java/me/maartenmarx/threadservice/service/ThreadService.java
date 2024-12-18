@@ -1,6 +1,6 @@
 package me.maartenmarx.threadservice.service;
 
-import dto.*;
+import me.maartenmarx.common.dto.*;
 import lombok.RequiredArgsConstructor;
 import me.maartenmarx.threadservice.model.Thread;
 import me.maartenmarx.threadservice.repository.ThreadRepository;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
-import service.JwtService;
+import me.maartenmarx.common.service.JwtService;
 
 import java.util.ArrayList;
 

@@ -1,9 +1,9 @@
 package me.maartenmarx.threadservice.controller;
 
-import dto.ThreadRequest;
-import dto.ThreadResponse;
-import dto.ThreadsResponse;
-import service.JwtService;
+import me.maartenmarx.common.dto.ThreadRequest;
+import me.maartenmarx.common.dto.ThreadResponse;
+import me.maartenmarx.common.dto.ThreadsResponse;
+import me.maartenmarx.common.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import me.maartenmarx.threadservice.service.ThreadService;
 import org.springframework.http.HttpStatus;

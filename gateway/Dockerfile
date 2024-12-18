@@ -6,5 +6,5 @@ ARG GOOGLE_CLIENT_SECRET
 ARG GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID
 ARG GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET
 
-ADD build/*jar app.jar
+ADD build/**/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]

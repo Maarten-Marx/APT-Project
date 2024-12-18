@@ -1,6 +1,6 @@
-package dto;
+package me.maartenmarx.common.dto;
 
-import data.Achievement;
+import me.maartenmarx.common.data.Achievement;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

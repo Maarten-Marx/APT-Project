@@ -1,11 +1,11 @@
 package me.maartenmarx.interactionservice.controller
 
-import dto.ReactionRequest
-import dto.ReactionsResponse
+import me.maartenmarx.common.dto.ReactionRequest
+import me.maartenmarx.common.dto.ReactionsResponse
 import me.maartenmarx.interactionservice.service.ReactionService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import service.JwtService
+import me.maartenmarx.common.service.JwtService
 
 @RestController
 @RequestMapping("/api/reactions")

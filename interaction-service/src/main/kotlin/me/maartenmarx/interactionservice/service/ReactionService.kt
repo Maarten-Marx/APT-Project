@@ -1,15 +1,13 @@
 package me.maartenmarx.interactionservice.service
 
-import dto.CommentRequest
-import dto.ReactionDto
-import dto.ReactionRequest
-import dto.ReactionsResponse
-import me.maartenmarx.interactionservice.model.Comment
+import me.maartenmarx.common.dto.ReactionDto
+import me.maartenmarx.common.dto.ReactionRequest
+import me.maartenmarx.common.dto.ReactionsResponse
 import me.maartenmarx.interactionservice.model.Reaction
 import me.maartenmarx.interactionservice.repository.ReactionRepository
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
-import service.JwtService
+import me.maartenmarx.common.service.JwtService
 
 @Service
 class ReactionService(
