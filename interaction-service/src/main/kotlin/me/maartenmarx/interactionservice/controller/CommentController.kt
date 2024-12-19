@@ -19,10 +19,16 @@ import me.maartenmarx.common.service.JwtService
 class CommentController(
     private val commentService: CommentService
 ) {
-    @GetMapping("/{id}")
+    @GetMapping("/thread/{id}")
     @ResponseStatus(HttpStatus.OK)
-    fun getByPost(@PathVariable id: Long): CommentsResponse {
+    fun getByThread(@PathVariable id: Long): CommentsResponse {
         return commentService.getByThread(id)
+    }
+
+    @GetMapping("/user/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    fun getByUser(@PathVariable id: String): CommentsResponse {
+        return commentService.getByUser(id)
     }
 
     @PostMapping

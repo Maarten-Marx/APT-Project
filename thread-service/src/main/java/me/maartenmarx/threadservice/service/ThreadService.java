@@ -53,13 +53,13 @@ public class ThreadService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         var commentResponse = webClient.get()
-                .uri( "http://" + interactionServiceBaseUrl + "/api/comments/" + thread.getId())
+                .uri("http://" + interactionServiceBaseUrl + "/api/comments/thread/" + thread.getId())
                 .retrieve()
                 .bodyToMono(CommentsResponse.class)
                 .blockOptional();
 
         var reactionResponse = webClient.get()
-                .uri( "http://" + interactionServiceBaseUrl + "/api/reactions/" + thread.getId())
+                .uri("http://" + interactionServiceBaseUrl + "/api/reactions/thread/" + thread.getId())
                 .retrieve()
                 .bodyToMono(ReactionsResponse.class)
                 .blockOptional();

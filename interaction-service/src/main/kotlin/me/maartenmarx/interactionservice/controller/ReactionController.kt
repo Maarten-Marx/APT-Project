@@ -12,10 +12,16 @@ import me.maartenmarx.common.service.JwtService
 class ReactionController(
     private val reactionService: ReactionService
 ) {
-    @GetMapping("/{id}")
+    @GetMapping("/thread/{id}")
     @ResponseStatus(HttpStatus.OK)
     fun getByThread(@PathVariable id: Long): ReactionsResponse {
         return reactionService.getByThread(id)
+    }
+
+    @GetMapping("/user/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    fun getByUser(@PathVariable id: String): ReactionsResponse {
+        return reactionService.getByUser(id)
     }
 
     @PostMapping

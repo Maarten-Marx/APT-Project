@@ -29,6 +29,14 @@ class ReactionService(
         )
     }
 
+    fun getByUser(id: String): ReactionsResponse {
+        return ReactionsResponse(
+            reactionRepository.findByUserId(id).map {
+                ReactionDto(it.emoji, null)
+            }
+        )
+    }
+
     fun createReaction(request: ReactionRequest, userData: JwtService.UserData): Long? {
         val user = getOrCreateUser(userData)
 

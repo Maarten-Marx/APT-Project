@@ -29,6 +29,14 @@ class CommentService(
         )
     }
 
+    fun getByUser(id: String): CommentsResponse {
+        return CommentsResponse(
+            commentRepository.findByUserId(id).map {
+                CommentDto(it.content, null)
+            }
+        )
+    }
+
     fun createComment(request: CommentRequest, userData: JwtService.UserData): Long? {
         val user = getOrCreateUser(userData)
 
