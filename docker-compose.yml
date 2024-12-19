@@ -41,6 +41,7 @@ services:
       MYSQL_DB_URL: thread-db:3306
       INTERACTION_SERVICE_BASEURL: http://interaction-service:8082
       USER_SERVICE_BASEURL: http://user-service:8083
+      KAFKA_BOOTSTRAP_SERVER: kafka:9092
 
   interaction-service:
     depends_on:
@@ -55,6 +56,7 @@ services:
       MYSQL_DB_PASSWORD: password
       MYSQL_DB_URL: interaction-db:3306
       USER_SERVICE_BASEURL: http://user-service:8083
+      KAFKA_BOOTSTRAP_SERVER: kafka:9092
 
   user-service:
     depends_on:
@@ -67,6 +69,8 @@ services:
     environment:
       MONGODB_URL: user-mongo:27017
       THREAD_SERVICE_BASEURL: http://thread-service:8081
+      INTERACTION_SERVICE_BASEURL: http://interaction-service:8082
+      KAFKA_BOOTSTRAP_SERVER: kafka:9092
 
   gateway:
     depends_on:
@@ -84,6 +88,19 @@ services:
       THREAD_SERVICE_BASEURL: thread-service:8081
       INTERACTION_SERVICE_BASEURL: interaction-service:8082
       USER_SERVICE_BASEURL: user-service:8083
+
+  zookeeper:
+    image: zookeeper:latest
+    restart: always
+    ports:
+      - "2181:2181"
+
+  kafka:
+    depends_on:
+      - zookeeper
+    image: apache/kafka:latest
+    ports:
+      - "9092:9092"
 
 volumes:
   thread-db:

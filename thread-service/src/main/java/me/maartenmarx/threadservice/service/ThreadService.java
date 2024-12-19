@@ -7,6 +7,7 @@ import me.maartenmarx.threadservice.repository.ThreadRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 public class ThreadService {
     private final ThreadRepository threadRepository;
     private final WebClient webClient;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Value("${services.users.baseurl}")
     private String userServiceBaseUrl;
@@ -100,6 +102,8 @@ public class ThreadService {
                 .title(request.getTitle())
                 .content(request.getContent())
                 .build();
+
+        kafkaTemplate.send("thread", user.getId());
 
         return threadRepository.save(thread).getId();
     }

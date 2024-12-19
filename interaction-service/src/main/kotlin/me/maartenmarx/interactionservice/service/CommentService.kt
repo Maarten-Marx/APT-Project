@@ -9,10 +9,12 @@ import me.maartenmarx.interactionservice.repository.CommentRepository
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import me.maartenmarx.common.service.JwtService
+import org.springframework.kafka.core.KafkaTemplate
 
 @Service
 class CommentService(
     private val commentRepository: CommentRepository,
+    private val kafkaTemplate: KafkaTemplate<String, String?>,
     webClient: WebClient
 ): InteractionService(webClient) {
     fun getByThread(id: Long): CommentsResponse {
@@ -45,6 +47,8 @@ class CommentService(
             threadId = request.threadId
             content = request.content
         }
+
+        kafkaTemplate.send("comment", user.id)
 
         return commentRepository.save(comment).id
     }

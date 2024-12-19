@@ -17,6 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -39,6 +40,9 @@ public class InteractionServiceUnitTest {
 
     @InjectMocks
     private ReactionService reactionService;
+
+    @Mock
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     @Mock
     private CommentRepository commentRepository;

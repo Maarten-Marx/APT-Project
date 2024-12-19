@@ -9,10 +9,12 @@ import me.maartenmarx.interactionservice.repository.ReactionRepository
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import me.maartenmarx.common.service.JwtService
+import org.springframework.kafka.core.KafkaTemplate
 
 @Service
 class ReactionService(
     private val reactionRepository: ReactionRepository,
+    private val kafkaTemplate: KafkaTemplate<String, String?>,
     webClient: WebClient
 ): InteractionService(webClient) {
     fun getByThread(id: Long): ReactionsResponse {
@@ -45,6 +47,8 @@ class ReactionService(
             threadId = request.threadId
             emoji = request.emoji
         }
+
+        kafkaTemplate.send("reaction", user.id)
 
         return reactionRepository.save(reaction).id
     }
