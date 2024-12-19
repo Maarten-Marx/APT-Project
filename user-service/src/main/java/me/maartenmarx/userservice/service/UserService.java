@@ -50,7 +50,7 @@ public class UserService {
         var user = userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         var threads = webClient.get()
-                .uri(threadServiceBaseUrl + "/api/threads/user/" + user.getId())
+                .uri("http://" + threadServiceBaseUrl + "/api/threads/user/" + user.getId())
                 .retrieve()
                 .bodyToMono(ThreadsResponse.class)
                 .blockOptional()

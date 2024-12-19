@@ -29,7 +29,7 @@ public class ThreadService {
     public ThreadsResponse getAllThreads() {
         var threads = threadRepository.findAll().stream().map(t -> {
             var userResponse = webClient.get()
-                    .uri(userServiceBaseUrl + "/api/users/" + t.getUserId())
+                    .uri("http://" + userServiceBaseUrl + "/api/users/" + t.getUserId())
                     .retrieve()
                     .bodyToMono(UserResponse.class)
                     .blockOptional()
@@ -53,19 +53,19 @@ public class ThreadService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         var commentResponse = webClient.get()
-                .uri( interactionServiceBaseUrl + "/api/comments/" + thread.getId())
+                .uri( "http://" + interactionServiceBaseUrl + "/api/comments/" + thread.getId())
                 .retrieve()
                 .bodyToMono(CommentsResponse.class)
                 .blockOptional();
 
         var reactionResponse = webClient.get()
-                .uri( interactionServiceBaseUrl + "/api/reactions/" + thread.getId())
+                .uri( "http://" + interactionServiceBaseUrl + "/api/reactions/" + thread.getId())
                 .retrieve()
                 .bodyToMono(ReactionsResponse.class)
                 .blockOptional();
 
         var userResponse = webClient.get()
-                .uri(userServiceBaseUrl + "/api/users/" + thread.getUserId())
+                .uri("http://" + userServiceBaseUrl + "/api/users/" + thread.getUserId())
                 .retrieve()
                 .bodyToMono(UserResponse.class)
                 .blockOptional()
@@ -134,7 +134,7 @@ public class ThreadService {
 
     private UserResponse getOrCreateUser(JwtService.UserData userData) {
         var user = webClient.get()
-                .uri(userServiceBaseUrl + "/api/users/email/" + userData.getEmail())
+                .uri("http://"  + userServiceBaseUrl + "/api/users/email/" + userData.getEmail())
                 .retrieve()
                 .onStatus(
                         s -> s.equals(HttpStatus.NOT_FOUND),
@@ -152,7 +152,7 @@ public class ThreadService {
                     .build();
 
             return webClient.post()
-                    .uri(userServiceBaseUrl + "/api/users")
+                    .uri("http://" + userServiceBaseUrl + "/api/users")
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(Mono.just(req), UserRequest.class)
                     .retrieve()

@@ -21,7 +21,7 @@ open class InteractionService(
 
     protected fun getOrCreateUser(userData: JwtService.UserData): UserResponse {
         var user = webClient.get()
-            .uri("$userServiceBaseUrl/api/users/email/" + userData.getEmail())
+            .uri("http://$userServiceBaseUrl/api/users/email/" + userData.getEmail())
             .retrieve()
             .onStatus({ s -> s.equals(HttpStatus.NOT_FOUND) }) { _ ->
                 Mono.empty()
@@ -38,7 +38,7 @@ open class InteractionService(
             }
 
             return webClient.post()
-                .uri("$userServiceBaseUrl/api/users")
+                .uri("http://$userServiceBaseUrl/api/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(req), UserRequest::class.java)
                 .retrieve()

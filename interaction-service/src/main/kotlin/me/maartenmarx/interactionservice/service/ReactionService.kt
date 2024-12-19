@@ -19,7 +19,7 @@ class ReactionService(
         return ReactionsResponse(
             reactionRepository.findByThreadId(id).map {
                 var user = webClient.get()
-                    .uri("$userServiceBaseUrl/api/users/" + it.userId)
+                    .uri("http://$userServiceBaseUrl/api/users/" + it.userId)
                     .retrieve()
                     .bodyToMono(UserResponse::class.java)
                     .block()
