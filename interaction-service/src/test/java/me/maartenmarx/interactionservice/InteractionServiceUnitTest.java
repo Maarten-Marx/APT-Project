@@ -92,6 +92,20 @@ public class InteractionServiceUnitTest {
     }
 
     @Test
+    public void testGetCommentsByUser() {
+        var comment1 = new Comment(1L, "Content of comment 1.", 1L, "1");
+        var comment2 = new Comment(2L, "Content of comment 2.", 1L, "1");
+
+        when(commentRepository.findByUserId("1")).thenReturn(Arrays.asList(comment1, comment2));
+
+        var result = commentService.getByUser("1");
+
+        assertEquals(2, result.getComments().size());
+
+        verify(commentRepository, times(1)).findByUserId(anyString());
+    }
+
+    @Test
     public void testCreateComment() {
         var comment = new Comment(1L, "Content of comment 1.", 1L, "1");
         var commentRequest = new CommentRequest(1L, "Content of comment 1.");
@@ -139,6 +153,20 @@ public class InteractionServiceUnitTest {
         assertEquals(2, result.getReactions().size());
 
         verify(reactionRepository, times(1)).findByThreadId(anyLong());
+    }
+
+    @Test
+    public void testGetReactionsByUser() {
+        var reaction1 = new Reaction(1L, "❤️", 1L, "1");
+        var reaction2 = new Reaction(2L, "🎉", 1L, "2");
+
+        when(reactionRepository.findByUserId("1")).thenReturn(Arrays.asList(reaction1, reaction2));
+
+        var result = reactionService.getByUser("1");
+
+        assertEquals(2, result.getReactions().size());
+
+        verify(reactionRepository, times(1)).findByUserId(anyString());
     }
 
     @Test
