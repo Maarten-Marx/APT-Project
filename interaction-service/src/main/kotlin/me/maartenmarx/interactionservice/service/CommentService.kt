@@ -29,7 +29,7 @@ class CommentService(
         )
     }
 
-    fun createComment(request: CommentRequest, userData: JwtService.UserData) {
+    fun createComment(request: CommentRequest, userData: JwtService.UserData): Long? {
         val user = getOrCreateUser(userData)
 
         val comment = Comment().apply {
@@ -38,6 +38,6 @@ class CommentService(
             content = request.content
         }
 
-        commentRepository.save(comment)
+        return commentRepository.save(comment).id
     }
 }

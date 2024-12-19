@@ -29,7 +29,7 @@ class ReactionService(
         )
     }
 
-    fun createReaction(request: ReactionRequest, userData: JwtService.UserData) {
+    fun createReaction(request: ReactionRequest, userData: JwtService.UserData): Long? {
         val user = getOrCreateUser(userData)
 
         val reaction = Reaction().apply {
@@ -38,6 +38,6 @@ class ReactionService(
             emoji = request.emoji
         }
 
-        reactionRepository.save(reaction)
+        return reactionRepository.save(reaction).id
     }
 }

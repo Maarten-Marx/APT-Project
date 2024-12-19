@@ -92,7 +92,7 @@ public class ThreadService {
         return new ThreadsResponse(threads);
     }
 
-    public void createThread(ThreadRequest request, JwtService.UserData userData) {
+    public Long createThread(ThreadRequest request, JwtService.UserData userData) {
         var user = getOrCreateUser(userData);
 
         var thread = Thread.builder()
@@ -101,10 +101,10 @@ public class ThreadService {
                 .content(request.getContent())
                 .build();
 
-        threadRepository.save(thread);
+        return threadRepository.save(thread).getId();
     }
 
-    public void updateThread(Long threadId, ThreadRequest request, JwtService.UserData userData) {
+    public boolean updateThread(Long threadId, ThreadRequest request, JwtService.UserData userData) {
         var user = getOrCreateUser(userData);
 
         var thread = threadRepository.findById(threadId)
@@ -116,9 +116,11 @@ public class ThreadService {
         thread.setContent(request.getContent());
 
         threadRepository.save(thread);
+
+        return true;
     }
 
-    public void deleteThread(Long threadId, JwtService.UserData userData) {
+    public boolean deleteThread(Long threadId, JwtService.UserData userData) {
         var user = getOrCreateUser(userData);
         var thread = threadRepository.findById(threadId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -126,6 +128,8 @@ public class ThreadService {
         if (!thread.getUserId().equals(user.getId())) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
 
         threadRepository.delete(thread);
+
+        return true;
     }
 
     private UserResponse getOrCreateUser(JwtService.UserData userData) {
