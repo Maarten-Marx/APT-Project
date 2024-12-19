@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Data
 @Builder
 @Document(value = "user")
@@ -16,5 +18,5 @@ public class User {
     private String id;
     private String email;
     private String username;
-    private Iterable<Achievement> achievements;
+    private List<Achievement> achievements;
 }

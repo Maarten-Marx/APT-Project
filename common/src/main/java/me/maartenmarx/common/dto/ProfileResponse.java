@@ -6,12 +6,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProfileResponse {
     private String username;
-    private Iterable<Achievement> achievements;
-    private Iterable<ThreadResponse> threads;
+    private List<Achievement> achievements;
+    private List<ThreadResponse> threads;
 }

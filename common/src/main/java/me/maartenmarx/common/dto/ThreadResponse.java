@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -14,5 +16,5 @@ public class ThreadResponse {
     private String title;
     private String content;
     private UserResponse user;
-    private Iterable<CommentDto> comments;
+    private List<CommentDto> comments;
 }
