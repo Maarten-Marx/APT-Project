@@ -3,6 +3,7 @@ package me.maartenmarx.interactionservice.service
 import me.maartenmarx.common.dto.ReactionDto
 import me.maartenmarx.common.dto.ReactionRequest
 import me.maartenmarx.common.dto.ReactionsResponse
+import me.maartenmarx.common.dto.UserResponse
 import me.maartenmarx.interactionservice.model.Reaction
 import me.maartenmarx.interactionservice.repository.ReactionRepository
 import org.springframework.stereotype.Service
@@ -17,7 +18,13 @@ class ReactionService(
     fun getByThread(id: Long): ReactionsResponse {
         return ReactionsResponse(
             reactionRepository.findByThreadId(id).map {
-                ReactionDto(it.emoji, it.userId)
+                var user = webClient.get()
+                    .uri("$userServiceBaseUrl/api/users/" + it.userId)
+                    .retrieve()
+                    .bodyToMono(UserResponse::class.java)
+                    .block()
+
+                ReactionDto(it.emoji, user)
             }
         )
     }

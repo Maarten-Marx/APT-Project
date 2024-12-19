@@ -9,14 +9,19 @@ import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.server.ResponseStatusException
 import reactor.core.publisher.Mono
 import me.maartenmarx.common.service.JwtService
+import org.springframework.beans.factory.annotation.Value
 
 @Service
-class InteractionService(
-    private val webClient: WebClient
+@Suppress("RedundantModalityModifier")
+open class InteractionService(
+    protected val webClient: WebClient
 ) {
+    @Value("\${services.users.baseurl}")
+    protected var userServiceBaseUrl: String = ""
+
     protected fun getOrCreateUser(userData: JwtService.UserData): UserResponse {
         var user = webClient.get()
-            .uri("http://localhost:8083/api/users/email/" + userData.getEmail())
+            .uri("$userServiceBaseUrl/api/users/email/" + userData.getEmail())
             .retrieve()
             .onStatus({ s -> s.equals(HttpStatus.NOT_FOUND) }) { _ ->
                 Mono.empty()
@@ -33,7 +38,7 @@ class InteractionService(
             }
 
             return webClient.post()
-                .uri("http://localhost:8083/api/users")
+                .uri("$userServiceBaseUrl/api/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(req), UserRequest::class.java)
                 .retrieve()

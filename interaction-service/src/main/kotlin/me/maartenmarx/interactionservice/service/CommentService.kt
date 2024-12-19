@@ -3,6 +3,7 @@ package me.maartenmarx.interactionservice.service
 import me.maartenmarx.common.dto.CommentDto
 import me.maartenmarx.common.dto.CommentRequest
 import me.maartenmarx.common.dto.CommentsResponse
+import me.maartenmarx.common.dto.UserResponse
 import me.maartenmarx.interactionservice.model.Comment
 import me.maartenmarx.interactionservice.repository.CommentRepository
 import org.springframework.stereotype.Service
@@ -17,7 +18,13 @@ class CommentService(
     fun getByThread(id: Long): CommentsResponse {
         return CommentsResponse(
             commentRepository.findByThreadId(id).map {
-                CommentDto(it.content, it.userId)
+                var user = webClient.get()
+                    .uri("$userServiceBaseUrl/api/users/" + it.userId)
+                    .retrieve()
+                    .bodyToMono(UserResponse::class.java)
+                    .block()
+
+                CommentDto(it.content, user)
             }
         )
     }

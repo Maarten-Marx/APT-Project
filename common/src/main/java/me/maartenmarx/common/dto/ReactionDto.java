@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReactionDto {
     private String emoji;
-    private String userId;
+    private UserResponse user;
 }
