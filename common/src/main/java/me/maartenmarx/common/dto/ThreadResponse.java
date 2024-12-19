@@ -17,4 +17,5 @@ public class ThreadResponse {
     private String content;
     private UserResponse user;
     private List<CommentDto> comments;
+    private List<ReactionDto> reactions;
 }

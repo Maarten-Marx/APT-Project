@@ -40,6 +40,7 @@ public class ThreadService {
                     t.getTitle(),
                     t.getContent(),
                     userResponse,
+                    null,
                     null
             );
         }).toList();
@@ -57,6 +58,12 @@ public class ThreadService {
                 .bodyToMono(CommentsResponse.class)
                 .blockOptional();
 
+        var reactionResponse = webClient.get()
+                .uri( interactionServiceBaseUrl + "/api/reactions/" + thread.getId())
+                .retrieve()
+                .bodyToMono(ReactionsResponse.class)
+                .blockOptional();
+
         var userResponse = webClient.get()
                 .uri(userServiceBaseUrl + "/api/users/" + thread.getUserId())
                 .retrieve()
@@ -69,7 +76,8 @@ public class ThreadService {
                 thread.getTitle(),
                 thread.getContent(),
                 userResponse,
-                commentResponse.map(CommentsResponse::getComments).orElseGet(ArrayList::new)
+                commentResponse.map(CommentsResponse::getComments).orElseGet(ArrayList::new),
+                reactionResponse.map(ReactionsResponse::getReactions).orElseGet(ArrayList::new)
         );
     }
 
