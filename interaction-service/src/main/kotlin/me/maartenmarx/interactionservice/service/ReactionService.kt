@@ -48,8 +48,8 @@ class ReactionService(
             emoji = request.emoji
         }
 
-        kafkaTemplate.send("reaction", user.id)
-
-        return reactionRepository.save(reaction).id
+        return reactionRepository.save(reaction).id.also {
+            kafkaTemplate.send("reaction", user.id)
+        }
     }
 }

@@ -48,8 +48,8 @@ class CommentService(
             content = request.content
         }
 
-        kafkaTemplate.send("comment", user.id)
-
-        return commentRepository.save(comment).id
+        return commentRepository.save(comment).id.also {
+            kafkaTemplate.send("comment", user.id)
+        }
     }
 }

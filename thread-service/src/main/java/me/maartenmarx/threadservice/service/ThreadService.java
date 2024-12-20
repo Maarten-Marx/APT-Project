@@ -104,9 +104,11 @@ public class ThreadService {
                 .content(request.getContent())
                 .build();
 
+        var res = threadRepository.save(thread).getId();
+
         kafkaTemplate.send("thread", user.getId());
 
-        return threadRepository.save(thread).getId();
+        return res;
     }
 
     public boolean updateThread(Long threadId, ThreadRequest request, JwtService.UserData userData) {
