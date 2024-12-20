@@ -86,6 +86,7 @@ public class ThreadService {
     public ThreadsResponse getByUser(String id) {
         var threads = threadRepository.findByUserId(id).stream().map(t ->
                 ThreadResponse.builder()
+                        .id(t.getId())
                         .title(t.getTitle())
                         .content(t.getContent())
                         .build()
