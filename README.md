@@ -18,7 +18,7 @@ Some shared code, like the DTOs, is kept in a [Common](common) project, which is
 
 > [!WARNING]  
 > IntelliJ is sometimes unable to resolve the references to the Common project in the Interaction Service.
-> This can be fixed by applying the quick fix it suggests: `Add library '…' to classpath`. The project will compile regardless.
+> This can be fixed by applying the quick fix it suggests: `Add dependency on module '….common.main'`. The project will compile regardless.
 
 ### Databases
 
