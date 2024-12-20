@@ -29,7 +29,8 @@ services:
 
   thread-service:
     depends_on:
-      - thread-db
+      thread-db:
+        condition: service_started
     image: mrtnmrx/thread-service
     ports:
       - "8081:8081"
@@ -45,7 +46,8 @@ services:
 
   interaction-service:
     depends_on:
-      - interaction-db
+      interaction-db:
+        condition: service_started
     image: mrtnmrx/interaction-service
     ports:
       - "8082:8082"
@@ -60,7 +62,8 @@ services:
 
   user-service:
     depends_on:
-      - user-mongo
+      user-mongo:
+        condition: service_started
     image: mrtnmrx/user-service
     ports:
       - "8083:8083"
