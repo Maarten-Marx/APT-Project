@@ -28,6 +28,7 @@ services:
       - user-mongo:/data/db
 
   thread-service:
+    restart: always
     depends_on:
       thread-db:
         condition: service_started
@@ -45,6 +46,7 @@ services:
       KAFKA_BOOTSTRAP_SERVER: kafka:9092
 
   interaction-service:
+    restart: always
     depends_on:
       interaction-db:
         condition: service_started
@@ -61,6 +63,7 @@ services:
       KAFKA_BOOTSTRAP_SERVER: kafka:9092
 
   user-service:
+    restart: always
     depends_on:
       user-mongo:
         condition: service_started
@@ -76,6 +79,7 @@ services:
       KAFKA_BOOTSTRAP_SERVER: kafka:9092
 
   gateway:
+    restart: always
     depends_on:
       - thread-service
       - interaction-service
