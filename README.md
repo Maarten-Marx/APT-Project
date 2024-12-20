@@ -46,3 +46,64 @@ I've written unit tests for all services relating to an entity in the database:
 
 ![project-structure](public/project-structure.drawio.png)
 *(This image can be imported and edited on [draw.io](https://draw.io))*
+
+## API Requests
+
+> [!NOTE]  
+> I'm using IntelliJ's built-in [HTTP client](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html).
+> To reproduce these requests:
+> 1. Get a Bearer token using Postman, the way it was described in the course material.
+> 2. Create a file named `http-client.private.env.json` with the content below:
+>   ```json
+>   {
+>     "dev": {
+>       "bearer": "<YOUR TOKEN>"
+>     }
+>   }
+>   ```
+> 3. Select the `dev` environment in the `.http` files in [`gateway/http`](gateway/http).
+> 4. Run the requests in the files.
+> 
+> *You might need to change some of the IDs in the URLs depending on the IDs of your entities.*
+
+### [Threads](gateway/http/thread-service.http)
+
+**`GET` All Threads**
+
+![GET-threads.png](public/http/GET-threads.png)
+
+**`GET` Thread by ID**
+
+![GET-thread-by-id.png](public/http/GET-thread-by-id.png)
+
+**`GET` Threads by User**
+
+![GET-threads-by-user.png](public/http/GET-threads-by-user.png)
+
+**`POST` New Thread**
+
+![POST-thread.png](public/http/POST-thread.png)
+
+**`PUT` Thread by ID**
+
+![PUT-thread-by-id.png](public/http/PUT-thread-by-id.png)
+
+**`DELETE` Thread by ID**
+
+![DELETE-thread-by-id.png](public/http/DELETE-thread-by-id.png)
+
+### [Interactions](gateway/http/interaction-service.http)
+
+**`POST` New Comment**
+
+![POST-comment.png](public/http/POST-comment.png)
+
+**`POST` New Comment**
+
+![POST-reaction.png](public/http/POST-reaction.png)
+
+### [Users](gateway/http/user-service.http)
+
+**`GET` User by ID**
+
+![GET-user-by-id.png](public/http/GET-user-by-id.png)
