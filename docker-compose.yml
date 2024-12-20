@@ -39,8 +39,8 @@ services:
       MYSQL_DB_USERNAME: root
       MYSQL_DB_PASSWORD: password
       MYSQL_DB_URL: thread-db:3306
-      INTERACTION_SERVICE_BASEURL: http://interaction-service:8082
-      USER_SERVICE_BASEURL: http://user-service:8083
+      INTERACTION_SERVICE_BASEURL: interaction-service:8082
+      USER_SERVICE_BASEURL: user-service:8083
       KAFKA_BOOTSTRAP_SERVER: kafka:9092
 
   interaction-service:
@@ -55,7 +55,7 @@ services:
       MYSQL_DB_USERNAME: root
       MYSQL_DB_PASSWORD: password
       MYSQL_DB_URL: interaction-db:3306
-      USER_SERVICE_BASEURL: http://user-service:8083
+      USER_SERVICE_BASEURL: user-service:8083
       KAFKA_BOOTSTRAP_SERVER: kafka:9092
 
   user-service:
@@ -68,8 +68,8 @@ services:
       - user-mongo
     environment:
       MONGODB_URL: user-mongo:27017
-      THREAD_SERVICE_BASEURL: http://thread-service:8081
-      INTERACTION_SERVICE_BASEURL: http://interaction-service:8082
+      THREAD_SERVICE_BASEURL: thread-service:8081
+      INTERACTION_SERVICE_BASEURL: interaction-service:8082
       KAFKA_BOOTSTRAP_SERVER: kafka:9092
 
   gateway:
